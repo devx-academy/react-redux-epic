@@ -1,6 +1,23 @@
 # First React+Redux+Epic app
 Initial repository for RRE app.
 
+- https://redux-observable.js.org/docs/basics/SettingUpTheMiddleware.html
+- https://redux-observable.js.org/docs/basics/Epics.html
+- https://react-redux.js.org/introduction/quick-start
+- https://github.com/rtfeldman/seamless-immutable
+
+## Tasks
+
+- [ ] Connect store to the App container
+- [ ] Create sample post and render it
+- [ ] Connect epics
+- [ ] Create epic for get all posts
+- [ ] Create epic for get one post
+- [ ] Show list of posts
+- [ ] Delete post function
+- [ ] Create GeneralRedux with fetching variable
+- [ ] Create fetching middleware, errors middleware
+
 ## Available Scripts
 
 In the project directory, you can run:
