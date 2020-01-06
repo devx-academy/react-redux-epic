@@ -1,25 +1,41 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { connect, Provider } from 'react-redux'
+
+import PostActions from '../redux/PostRedux'
 
 import logo from '../logo.svg'
 import '../styles/App.css'
 
-const App = (props) => {
-  return (
-    <Provider store={props.store}>
-      <div className="App">
-        <header className="App-header">
+class App extends React.Component {
+  componentDidMount() {
+    this.props.getPosts(2)
+  }
+
+  render() {
+    const { store, posts } = this.props
+    console.log(this.props)
+    return (
+      <Provider store={store}>
+        <div className="App">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
-        </header>
-      </div>
-    </Provider>
-  )
+          {posts.map((post) => (
+            <p key={post.id}>
+              {post.id}. {post.title}
+            </p>
+          ))}
+        </div>
+      </Provider>
+    )
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    posts: state.postState.posts,
+  }
+}
+const mapDispatchToProps = {
+  getPosts: PostActions.getPosts,
+  getPostsSuccess: PostActions.getPostsSuccess,
 }
 
-export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App)
