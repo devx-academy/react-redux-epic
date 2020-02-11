@@ -9,11 +9,11 @@ export default [
   (action$) =>
     action$.pipe(
       ofType(PostTypes.GET_POSTS),
-      switchMap((action) =>
-        from(Api.getOnePost(action.id)).pipe(
+      switchMap(() =>
+        from(Api.getPosts()).pipe(
           switchMap((response) => {
             console.log(response)
-            return of(PostActions.getPostsSuccess([response.data]))
+            return of(PostActions.getPostsSuccess(response.data))
           }),
           catchError((e) => {
             console.log(e)

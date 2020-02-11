@@ -6,6 +6,8 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   getPosts: ['id'],
   getPostsSuccess: ['posts'],
+  selectPost: ['post'],
+  editPostValue: ['path', 'value'],
 })
 
 export const PostTypes = Types
@@ -27,12 +29,17 @@ export const INITIAL_STATE = Immutable({
 
 /* ------------- Reducers ------------- */
 
-const getPostsSuccessR = (state, { posts }) =>
-  state.set('posts', posts)
+export const getPostsSuccess = (state, { posts }) => state.set('posts', posts)
 
+const selectPostR = (state, { post }) => state.set('post', post)
+
+const editPostValueR = (state, { path, value }) =>
+  state.setIn(Array.isArray(path) ? path : path.split('.'), value)
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
+  [Types.EDIT_POST_VALUE]: editPostValueR,
   [Types.GET_POSTS]: (state) => state,
-  [Types.GET_POSTS_SUCCESS]: getPostsSuccessR,
+  [Types.GET_POSTS_SUCCESS]: getPostsSuccess,
+  [Types.SELECT_POST]: selectPostR,
 })
